@@ -41,4 +41,6 @@ PDA - the pushdown automaton class. Currently only supports
     greedy_parse(input) - parses input by attempting to reduce variables into expressions
     at earliest possible time.
 
-examples.cs - some example grammars to show the usage of the PDA
+examples.cs - Some example grammars to show the usage of the PDA
+
+examples.txt - The terminal output of the examples
