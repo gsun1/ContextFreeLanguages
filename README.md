@@ -3,6 +3,7 @@ A CFL parsing library
 
 CFG.cs
 CFG - the context free grammar class.
+    
     State:
     Variables - The variables of the context free grammar. 
     Terminals - The terminals of the context free grammar.
@@ -23,6 +24,7 @@ CFG - the context free grammar class.
 PDA.cs
 PDA - the pushdown automaton class. Currently only supports
     greedy implementation for deterministic CFGs
+    
     State:
     stack - implementation of a stack using the List generic. This is
     done because the default stack implementation does not allow us to
