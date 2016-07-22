@@ -44,3 +44,7 @@ PDA - the pushdown automaton class. Currently only supports
 examples.cs - Some example grammars to show the usage of the PDA
 
 examples.txt - The terminal output of the examples
+
+For the future:
+I am looking to eventually add a parsing capability similar to Yacc/Bison.
+There are also some code inefficiencies that I will be working on fixing.
