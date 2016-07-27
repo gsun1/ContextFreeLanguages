@@ -2,7 +2,7 @@
 A CFL parsing library
 
 RegExRule.cs - a class to allow the easy creation of tokens from regular expressions
-  RegExRule<T> - a class for creating rules for turning regular expressions into tokens associated with type T.
+RegExRule<T> - a class for creating rules for turning regular expressions into tokens associated with type T.
   State:
   R - the regular expression to be tokenized
   Name - a function that maps from the regular expression to a desired token name
