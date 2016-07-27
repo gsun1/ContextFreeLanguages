@@ -5,13 +5,17 @@ using System.Collections.Generic;
 
 namespace CFL {
 
-    /* CFG - the context free grammar class.
+    /* CFG<T> - the context free grammar class of type T
     State:
     Variables - The variables of the context free grammar. 
     Terminals - The terminals of the context free grammar.
     Start - The start variable. It must be a variable.
-    Rules - The rules of the context free grammar. It must begin with
-    a variable and end with variables and terminals
+    Rules - The rules of the context free grammar, in the form of a tuple. The
+    first item in the tuple is a string array representation of a rule where the
+    first element of the array is the LHS of the rule and the subsequet strings
+    are the RHS. The second element is a function from an array of type T to type T.
+    It essentially uses the value of the tokens parsed to determine a value for the
+    token that is reduced to.
     Products - A list of the right hand sides of all of the rules
     MaxProduct - The length of the longest product
 
@@ -23,14 +27,14 @@ namespace CFL {
     side. Otherwise, it returns the empty string.
     print_CFG - Prints the context free grammar in a pritty format
     */
-    public class CFG {
+    public class CFG<T> {
         public string[] Variables { get; }
         public string[] Terminals { get; }
         public string Start { get; }
-        public string[][] Rules { get; }
+        public Tuple<string[],Func<T[],T>>[] Rules { get; }
         public string[][] Products { get; }
         public int MaxProduct { get; }
-        public CFG(string[] V, string[] T, string S, string[][] R) {
+        public CFG(string[] V, string[] T, string S, Tuple<string[],Func<T[],T>>[] R) {
             bool test1 = true; // make sure no Variables are also Terminals.
             bool test2 = false; // make sure the start variable is in Variables.
             bool test3 = true; // make sure rules only have variables on the left
@@ -46,7 +50,8 @@ namespace CFL {
                     }
                 }
             }
-            foreach (string[] rule in R) {
+            foreach (Tuple<string[],Func<T[],T>> ruleset in R) {
+                string[] rule = ruleset.Item1;
                 bool subtest = false;
                 foreach (string variable in V) {
                     if (variable == rule[0]) {
@@ -87,7 +92,8 @@ namespace CFL {
                 Rules = R;
                 // build products based on the rules.
                 List<string[]> builder = new List<string[]>{};
-                foreach (string[] rule in Rules) {
+                foreach (Tuple<string[],Func<T[],T>> ruleset in Rules) {
+                    string[] rule = ruleset.Item1;
                     string[] tmp = new string[rule.Length - 1];
                     for (int i = 1; i < rule.Length; ++i) {
                         tmp[i-1] = rule[i];
@@ -109,7 +115,12 @@ namespace CFL {
             }
         }
         public string inverse(string[] right) {
-            foreach (string[] rule in Rules) {
+            foreach (Tuple<string[],Func<T[],T>> ruleset in Rules) {
+                string[] rule = ruleset.Item1;
+                /*foreach (string str in rule) {
+                    Console.Write(str);
+                }
+                Console.WriteLine();*/
                 // only try to match if the RHS matches the input in length
                 if (right.Length == rule.Length - 1) {
                     bool match = true;
@@ -145,7 +156,8 @@ namespace CFL {
             Console.WriteLine();
             // Print Rules
             Console.WriteLine("Rules:");
-            foreach(string[] rule in Rules){
+            foreach(Tuple<string[],Func<T[],T>> ruleset in Rules){
+                string[] rule = ruleset.Item1;
                 string s = rule[0] + " -> ";
                 for(int i = 1; i < rule.Length; ++i) {
                     s += " " + rule[i] + " ";
@@ -153,6 +165,19 @@ namespace CFL {
                 Console.WriteLine(s);
             }
             Console.WriteLine();
+            /*Console.WriteLine("Products:");
+            foreach(string[] inv in Products) {
+                foreach (string str in inv) {
+                    Console.Write(str);
+                }
+                Console.WriteLine();
+            }*/
         }
     }
+
+    /*public class tester {
+        public static void Main() {
+            Console.WriteLine("Hello World!");
+        }
+    }*/
 }
