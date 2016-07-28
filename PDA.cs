@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Tokenizer;
+using PE;
 using CFL;
 
 namespace CFL {
@@ -192,8 +193,7 @@ namespace CFL {
                 return stack[0].Value;
             }
             else {
-                // For testing, should throw exception in future
-                return default(T);
+                throw new ParseException("Expression could not be fully reduced");
             }
         }
     }
