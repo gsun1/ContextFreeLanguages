@@ -3,6 +3,7 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using PE;
 using Tokenizer;
 
 namespace Tokenizer{
@@ -51,11 +52,8 @@ namespace Tokenizer{
                             maxLength = m.Length;
                         }
                     }
-                    // Temporary solution, so I don't have to
-                    // worry about throwing exceptions
                     if (maxLength == 0) {
-                        Console.WriteLine("Entire input not matched");
-                        break;
+                        throw new ParseException("Input was not fully matched");
                     }
                     else {
                         Token<T> t = new Token<T>(candidate_rule.Name(candidate), candidate_rule.Op(candidate));
