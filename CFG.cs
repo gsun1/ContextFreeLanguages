@@ -5,6 +5,16 @@ using System.Collections.Generic;
 
 namespace CFL {
 
+    /*
+    CFGException - exception for when the CFG cannot be initialized based on
+    the parameters
+    */
+
+    public class CFGException : Exception {
+        public CFGException() {}
+        public CFGException(string message) : base(message) {}
+    }
+
     /* CFG<T> - the context free grammar class of type T
     State:
     Variables - The variables of the context free grammar. 
@@ -109,9 +119,8 @@ namespace CFL {
                     }
                }
             }
-            //temporary solution. Will throw exception in the future
             else {
-                Console.WriteLine("CFG not properly specified. Initiation failed.");
+                throw new CFGException("CFG not properly specified. Initiation failed.");
             }
         }
         public string inverse(string[] right) {
