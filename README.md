@@ -90,5 +90,4 @@ examples.cs - Some example grammars to show the usage of the PDA
 
 
 For the future:
-The parser currently does not deal with unparsable strings in a principled way. The next task
-will be to add these exceptions and also to, in general, clean up the code where necessary
+The parser currently used uses a greedy application rule which works for single precedence, right associative grammars. A "look-ahead" functionality will need to be added in order to make the grammar robust enough for most purposes.
